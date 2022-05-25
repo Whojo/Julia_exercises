@@ -1,1 +1,1 @@
-# Jullia_exercises
+# Julia_exercises
