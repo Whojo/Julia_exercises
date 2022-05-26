@@ -10,7 +10,7 @@ function count_nucleotides(strand)
     bases = ('A', 'C', 'G', 'T')
     nucleotides_counter = Dict(bases .=> 0)
     for nucleotide in strand
-        if (nucleotide ∉ keys(nucleotides_counter))
+        if !haskey(nucleotides_counter, nucleotide)
             throw(DomainError(nucleotide, "Passed letter is not a nucleotide $bases"))
         end
 
