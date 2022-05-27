@@ -8,11 +8,9 @@ return the encoded `text` through the rotation cipher
 NB_LETTERS = 26
 
 function rotate(key, clear_char::Char)
-    UPPER_ALPHABET = 'A':'Z'
-    ALPHABET = union('a':'z', 'A':'Z')
-    clear_char ∈ ALPHABET || return clear_char
+    isletter(clear_char) || return clear_char
 
-    first = (clear_char ∈ UPPER_ALPHABET) ? 'A' : 'a'
+    first = isuppercase(clear_char) ? 'A' : 'a'
     (clear_char - first + key) % NB_LETTERS + first
 end
 
