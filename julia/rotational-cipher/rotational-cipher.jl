@@ -36,3 +36,7 @@ function rotate(key, clear_text)
 
     return rotate_char(key, clear_text)
 end
+
+macro R13_str(s)
+    rotate_str(13, s)
+end
