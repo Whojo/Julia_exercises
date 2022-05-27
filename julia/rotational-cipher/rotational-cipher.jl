@@ -14,29 +14,20 @@ function overflow(key, char)
     return (char - first + key) ≥ NB_LETTERS
 end
 
-function rotate_char(key, char)
-    new_char = char + key
-    return overflow(key, char) ? new_char - NB_LETTERS : new_char
-end
-
-function rotate_str(key, clear_text)
+function rotate(key, clear_char::Char)
     ALPHABET = union('a':'z', 'A':'Z')
+    clear_char ∈ ALPHABET || return clear_char
 
-    return string(map(clear_text) do char
-        char ∈ ALPHABET || return char
-
-        return rotate_char(key, char)
-    end)
+    new_char = clear_char + key
+    return overflow(key, clear_char) ? new_char - NB_LETTERS : new_char
 end
 
-function rotate(key, clear_text)
-    if (typeof(clear_text) == String)
-        return rotate_str(key, clear_text)
+function rotate(key, clear_text::String)
+    map(clear_text) do char
+        rotate(key, char)
     end
-
-    return rotate_char(key, clear_text)
 end
 
 macro R13_str(s)
-    rotate_str(13, s)
+    rotate(13, s)
 end
