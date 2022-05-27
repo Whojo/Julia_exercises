@@ -7,19 +7,13 @@ return the encoded `text` through the rotation cipher
 # - Precompute a translation dictionnary for larger strings
 NB_LETTERS = 26
 
-function overflow(key, char)
-    UPPER_ALPHABET = 'A':'Z'
-
-    first = char ∈ UPPER_ALPHABET ? 'A' : 'a'
-    return (char - first + key) ≥ NB_LETTERS
-end
-
 function rotate(key, clear_char::Char)
+    UPPER_ALPHABET = 'A':'Z'
     ALPHABET = union('a':'z', 'A':'Z')
     clear_char ∈ ALPHABET || return clear_char
 
-    new_char = clear_char + key
-    return overflow(key, clear_char) ? new_char - NB_LETTERS : new_char
+    first = (clear_char ∈ UPPER_ALPHABET) ? 'A' : 'a'
+    (clear_char - first + key) % NB_LETTERS + first
 end
 
 function rotate(key, clear_text::String)
