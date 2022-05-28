@@ -13,7 +13,7 @@ function rotate_long(key, clear_text::String)
                      for c in range)
 
     map(clear_text) do char
-        haskey(translate, char) ? translate[char] : char
+        translate.get(char, char)
     end
 end
 
