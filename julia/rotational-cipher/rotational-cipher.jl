@@ -3,9 +3,6 @@
 
 return the encoded `text` through the rotation cipher
 """
-# Improvements
-# - Precompute a translation dictionnary for larger strings
-
 function translate(char, key, first)
    (char - first + key) % 26 + first
 end
