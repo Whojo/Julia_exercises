@@ -14,9 +14,6 @@ function raindrops(number)
     if (number % 7 == 0)
         song *= "Plong"
     end
-    if (song == "")
-        song = "$(number)"
-    end
 
-    song
+    isempty(song) ? String(number) : song
 end
