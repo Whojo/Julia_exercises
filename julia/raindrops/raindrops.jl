@@ -15,5 +15,5 @@ function raindrops(number)
         song *= "Plong"
     end
 
-    isempty(song) ? String(number) : song
+    isempty(song) ? string(number) : song
 end
