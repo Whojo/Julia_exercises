@@ -1,0 +1,2 @@
+The goal of this package is to learn the whole packaging environment (test and so on) in Julia.
+The goal of this toy-like package is to implement a simple convolution, experiment and learn to master the debugger, the profiler and more generally all the Julia tools necessary to develop a package.
