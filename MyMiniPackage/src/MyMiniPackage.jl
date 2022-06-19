@@ -1,5 +1,10 @@
 module MyMiniPackage
 
-greet() = print("Hello World!")
+export my_convolution
+
+
+function my_convolution(image::Matrix, kernel::Matrix)
+    return image
+end
 
 end # module
