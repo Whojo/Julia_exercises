@@ -3,12 +3,12 @@ module MyMiniPackageTest
 using MyMiniPackage
 using Test
 
-@testset "MyMiniPackage" begin
+function test_my_convolution(my_convolution)
     @testset "Dimension" begin
         image = rand(Int8, (32, 32))
         kernel = rand(Int8, (3, 3))
 
-        got = my_sequential_convolution(image, kernel)
+        got = my_convolution(image, kernel)
         @test size(got) == size(image)
     end
 
@@ -17,7 +17,7 @@ using Test
         kernel = zeros(Int8, 3, 3)
         kernel[2, 2] = 1
 
-        got = my_sequential_convolution(image, kernel)
+        got = my_convolution(image, kernel)
         @test got == image
     end
 
@@ -40,9 +40,18 @@ using Test
              7 -3  -1  -9
             10  1  -3  -6
         ]
-        got = my_sequential_convolution(image, kernel)
+        got = my_convolution(image, kernel)
 
         @test got == expect
+    end
+end
+
+@testset "MyMiniPackage" begin
+    @testset "Sequential" begin
+        test_my_convolution(my_sequential_convolution)
+    end
+    @testset "Multithread" begin
+        test_my_convolution(my_naive_multithread_convolution)
     end
 end
 
