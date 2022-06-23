@@ -15,6 +15,7 @@ kernel = [
 ]
 
 @btime my_sequential_convolution(image, kernel)
+@btime MyMiniPackage.my_sequential_convolution_col_major(image, kernel)
 @btime my_naive_multithread_convolution(image, kernel) # Way slower (x12.5 with 8 threads)
 
 # Let's try the default profiler

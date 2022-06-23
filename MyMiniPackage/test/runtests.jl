@@ -50,6 +50,9 @@ end
     @testset "Sequential" begin
         test_my_convolution(my_sequential_convolution)
     end
+    @testset "Sequential col-major" begin
+        test_my_convolution(my_sequential_convolution_col_major)
+    end
     @testset "Multithread" begin
         test_my_convolution(my_naive_multithread_convolution)
     end

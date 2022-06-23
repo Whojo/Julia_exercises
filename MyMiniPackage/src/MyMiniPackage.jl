@@ -1,6 +1,8 @@
 module MyMiniPackage
 
-export my_sequential_convolution, my_naive_multithread_convolution
+export my_sequential_convolution,
+    my_sequential_convolution_col_major,
+    my_naive_multithread_convolution
 
 
 function get_relative_indexing(mid_ker, x, y, x_ker, y_ker)
@@ -11,7 +13,7 @@ end
 function my_sequential_convolution(image::Matrix, kernel::Matrix)
     x_img_dim, y_img_dim = size(image)
     x_ker_dim, y_ker_dim = size(kernel)
-    
+
     @assert x_ker_dim == y_ker_dim
     @assert x_ker_dim % 2 == 1
     mid_ker = x_ker_dim ÷ 2
@@ -28,10 +30,31 @@ function my_sequential_convolution(image::Matrix, kernel::Matrix)
     res
 end
 
+function my_sequential_convolution_col_major(image::Matrix, kernel::Matrix)
+    x_img_dim, y_img_dim = size(image)
+    x_ker_dim, y_ker_dim = size(kernel)
+
+    @assert x_ker_dim == y_ker_dim
+    @assert x_ker_dim % 2 == 1
+    mid_ker = x_ker_dim ÷ 2
+
+    res = zeros(eltype(image), size(image))
+    for y = 1:y_img_dim, x = 1:x_img_dim, x_ker = 1:x_ker_dim, y_ker = 1:y_ker_dim
+        new_x, new_y = get_relative_indexing(mid_ker, x, y, x_ker, y_ker)
+        if (new_x < 1 || new_y < 1 || new_x > x_img_dim || new_y > y_img_dim)
+            continue
+        end
+        res[x, y] += image[new_x, new_y] * kernel[x_ker, y_ker]
+    end
+
+    res
+end
+
+
 function my_naive_multithread_convolution(image::Matrix, kernel::Matrix)
     x_img_dim, y_img_dim = size(image)
     x_ker_dim, y_ker_dim = size(kernel)
-    
+
     @assert x_ker_dim == y_ker_dim
     @assert x_ker_dim % 2 == 1
     mid_ker = x_ker_dim ÷ 2
