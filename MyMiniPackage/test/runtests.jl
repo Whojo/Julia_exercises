@@ -1,21 +1,49 @@
+module MyMiniPackageTest
+
 using MyMiniPackage
 using Test
 
 @testset "MyMiniPackage" begin
     @testset "Dimension" begin
-        image = zeros(Int8, 32, 32)
-        kernel = zeros(Int8, 3, 3)
+        image = rand(Int8, (32, 32))
+        kernel = rand(Int8, (3, 3))
 
-        result = my_convolution(image, kernel)
-        @test size(result) == size(image)
+        got = my_sequential_convolution(image, kernel)
+        @test size(got) == size(image)
     end
-    
+
     @testset "Identity Kernel" begin
-        image = zeros(Int8, 32, 32)
+        image = rand(Int8, (32, 32))
         kernel = zeros(Int8, 3, 3)
         kernel[2, 2] = 1
 
-        result = my_convolution(image, kernel)
-        @test result == image
+        got = my_sequential_convolution(image, kernel)
+        @test got == image
+    end
+
+    @testset "Simple Kernel" begin
+        image = [
+            4 6 3 1
+            5 2 3 1
+            3 0 2 1
+            1 5 2 3
+        ]
+        kernel = [
+            -1 0 1
+            -2 0 2
+            -1 0 1
+        ]
+
+        expect = [
+            14 -4 -11  -9
+            10 -6  -6 -11
+             7 -3  -1  -9
+            10  1  -3  -6
+        ]
+        got = my_sequential_convolution(image, kernel)
+
+        @test got == expect
     end
 end
+
+end # module
