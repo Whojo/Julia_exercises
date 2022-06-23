@@ -2,3 +2,6 @@ name = "MyMiniPackage"
 uuid = "b6417e7f-220a-477c-ae3c-f8dfd8a79357"
 authors = ["Guillaume THOMAS <guillaume1.thomas@epita.fr>"]
 version = "0.1.0"
+
+[deps]
+ProfileView = "c46f51b8-102a-5cf2-8d2c-8597cb0e0da7"
